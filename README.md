@@ -1,35 +1,39 @@
 # Random Dad Jokes
 
-Learn the most commonly used features of PM2, and how to use it to deploy, manage, and scale your Node.js applications in production.
+Pelajari fitur PM2 yang paling umum digunakan, dan cara menggunakannya untuk menyebarkan, mengelola, dan menskalakan aplikasi Node.js Anda dalam produksi.
 
-**Tutorial**: [How to Deploy, Manage and Scale Node.js Applications with PM2](https://betterstack.com/community/guides/scaling-nodejs/pm2-guide/).
+## Menjalankan Project Pada Lingkungan Production Menggunakan pm2
 
-![Screenshot or GIF of the application in action](screenshot.png).
-
-## 🟢 Prerequisites
-
-You must have Node.js and `npm` installed on your machine. This project was built against the following versions:
-
-- Node.js v16.14.0.
-- npm v8.3.1.
-
-## 📦 Getting started
-
-- Clone this repo to your machine:
+1. instal pm2 secara global
 
 ```shell
-git clone https://github.com/betterstack-community/dadjokes
+npm install pm2 -g
 ```
 
-- `cd` into the project folder and run `npm install` to download dependencies.
-- Execute the command below to start the development server:
+2. Cek version pm2
 
+```shell
+pm2 -v
 ```
-node server.js
+
+3. Menjalankan pm2 secara langsung dengan memberi nama 'dadjokes' dan mengeksekusi file server.js
+
+```shell
+pm2 start --name 'dadjokes' server.js
 ```
 
-- Visit http://localhost:3000 in your browser.
+4. Membuat ecosistem file/konfigurasi untuk perintah pm2
 
-## ⚖ License
+```shell
+pm2 start ecosystem.config.js
+```
 
-The code used in this project and in the linked tutorial are licensed under the [Apache License, Version 2.0](LICENSE).
+=============================================
+
+## Menjalankan Project Node js dilingkungan Development Menggunakan PM2
+
+```shell
+npm2-dev server.js
+```
+
+Noted : Perintah diatas untuk menjalankan 'npm2-dev name-project'

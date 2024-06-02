@@ -1,12 +1,12 @@
-const express = require('express');
-const path = require('path');
-const axios = require('axios');
-const morgan = require('morgan');
+const express = require("express");
+const path = require("path");
+const axios = require("axios");
+const morgan = require("morgan");
 
 const app = express();
 
 const morganMiddleware = morgan(
-  ':method :url :status :res[content-length] - :response-time ms',
+  ":method :url :status :res[content-length] - :response-time ms",
   {
     stream: {
       write: (message) => console.log(message.trim()),
@@ -16,28 +16,28 @@ const morganMiddleware = morgan(
 
 app.use(morganMiddleware);
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
-app.set('view engine', 'pug');
+app.set("view engine", "pug");
 
 async function getRandomJoke() {
-  const response = await axios.get('https://icanhazdadjoke.com', {
+  const response = await axios.get("https://icanhazdadjoke.com", {
     headers: {
-      Accept: 'application/json',
-      'User-Agent':
-        'Random Dad Jokes (https://github.com/betterstack-community/random-dad-jokes)',
+      Accept: "application/json",
+      "User-Agent":
+        "Random Dad Jokes (https://github.com/betterstack-community/random-dad-jokes)",
     },
   });
 
   return response.data;
 }
 
-app.get('/', async (req, res, next) => {
+app.get("/", async (req, res, next) => {
   try {
     const response = await getRandomJoke();
 
-    res.render('home', {
-      title: 'Random Jokes',
+    res.render("home", {
+      title: "Random Jokes - By Angger",
       dadJoke: response,
     });
   } catch (err) {
@@ -45,7 +45,7 @@ app.get('/', async (req, res, next) => {
   }
 });
 
-app.get('/joke', async (req, res, next) => {
+app.get("/joke", async (req, res, next) => {
   try {
     const response = await getRandomJoke();
     res.json(response);
@@ -54,20 +54,20 @@ app.get('/joke', async (req, res, next) => {
   }
 });
 
-app.get('/crashme', (req, res) => {
-  res.send('Crashing server!');
+app.get("/crashme", (req, res) => {
+  res.send("Crashing server!");
   process.exit(1);
 });
 
-app.get('/graceful-shutdown', (req, res) => {
-  res.send('Graceful shutdown!');
+app.get("/graceful-shutdown", (req, res) => {
+  res.send("Graceful shutdown!");
   cleanupAndExit();
 });
 
 app.use(function (err, req, res, next) {
   console.error(err);
-  res.set('Content-Type', 'text/html');
-  res.status(500).send('<h1>Internal Server Error</h1>');
+  res.set("Content-Type", "text/html");
+  res.status(500).send("<h1>Internal Server Error</h1>");
 });
 
 const server = app.listen(process.env.PORT || 3000, () => {
@@ -76,7 +76,7 @@ const server = app.listen(process.env.PORT || 3000, () => {
 
 function cleanupAndExit() {
   server.close(() => {
-    console.log('dadjokes server closed');
+    console.log("dadjokes server closed");
     process.exit(0);
   });
 }
